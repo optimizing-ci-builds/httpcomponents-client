@@ -48,7 +48,7 @@ jobs:
       contents: read  # for actions/checkout to fetch code
       security-events: write  # for github/codeql-action/analyze to upload SARIF results
     name: Analyze
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     strategy:
       fail-fast: false
@@ -59,10 +59,12 @@ jobs:
         # https://docs.github.com/en/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#overriding-automatic-language-detection
 
     steps:
+    - run: touch starting_analyze_Checkoutrepository_62
     - name: Checkout repository
       uses: actions/checkout@v3
 
     # Initializes the CodeQL tools for scanning.
+    - run: touch starting_analyze_InitializeCodeQL_66
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       with:
@@ -74,6 +76,7 @@ jobs:
 
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
     # If this step fails, then you should remove it and run the build manually (see below)
+    - run: touch starting_analyze_Autobuild_77
     #- name: Autobuild
     #  uses: github/codeql-action/autobuild@v1
 
@@ -84,7 +87,10 @@ jobs:
     #    and modify them (or add more) to build your code if your project
     #    uses a compiled language
 
+    - run: touch starting_analyze_mvncleanpackage-DskipTests-Drat.skip=true-Dcheckstyle.skip_87
     - run: mvn clean package -DskipTests -Drat.skip=true -Dcheckstyle.skip
 
+    - run: touch starting_analyze_PerformCodeQLAnalysis_89
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
+

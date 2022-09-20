@@ -23,9 +23,12 @@ permissions:
 
 jobs:
   dependency-review:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
+      - run: touch starting_dependency-review_'CheckoutRepository'_28
       - name: 'Checkout Repository'
         uses: actions/checkout@v3
+      - run: touch starting_dependency-review_'DependencyReview'_30
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v2
+
